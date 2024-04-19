@@ -44,7 +44,7 @@ def train():
     model = NLIClassifier(**model_config)
 
     lr_monitor = LearningRateMonitor(logging_interval="step")
-    es_callback = EarlyStopping(monitor="lr-SGD", mode="min", patience=1, stopping_threshold=10e-5, verbose=True)
+    es_callback = EarlyStopping(monitor="lr-SGD", mode="min", patience=0, stopping_threshold=10e-5, verbose=True)
     checkpoint_callback = ModelCheckpoint(
         dirpath=os.path.join(args.checkpoint_dir, args.run_name).__str__(),
         filename="{epoch:02d}-{step}-{val_acc:.2f}",
@@ -62,6 +62,7 @@ def train():
         val_check_interval=1.0,
         callbacks=[lr_monitor, es_callback, checkpoint_callback],
         detect_anomaly=True,
+        progress_bar_refresh_rate=0,
     )
     trainer.fit(model, dataloader_trn, dataloader_val)
 

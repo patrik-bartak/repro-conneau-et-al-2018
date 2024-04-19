@@ -95,5 +95,5 @@ class NLIClassifier(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.SGD(self.parameters(), lr=self.lr)
         self.exp_scheduler = ExponentialLR(optimizer, gamma=self.lr_decay)
-        self.rlr_scheduler = ReduceLROnPlateau(optimizer, "max", factor=0.2, patience=1)
+        self.rlr_scheduler = ReduceLROnPlateau(optimizer, "max", factor=0.2, patience=0)
         return optimizer

@@ -4,7 +4,7 @@
 #SBATCH --gpus=1
 #SBATCH --job-name=train_models
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=4
 #SBATCH --time=01:00:00
 #SBATCH --mem=16000M
 #SBATCH --output=output/verify_train_model_%A.out

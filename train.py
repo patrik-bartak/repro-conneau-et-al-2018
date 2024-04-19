@@ -59,7 +59,7 @@ def train():
         max_steps=args.max_steps,
         logger=TensorBoardLogger(save_dir=args.checkpoint_dir, name=args.run_name),
         fast_dev_run=args.fast_dev_run,
-        val_check_interval=1,
+        val_check_interval=1.0,
         callbacks=[lr_monitor, es_callback, checkpoint_callback],
         detect_anomaly=True,
     )

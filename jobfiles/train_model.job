@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=10
 #SBATCH --time=10:00:00
 #SBATCH --mem=16000M
-#SBATCH --output=output/slurm_output_%A.out
+#SBATCH --output=output/train_model_%A.out
 
 module purge
 module load 2022

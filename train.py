@@ -61,7 +61,6 @@ def train():
         fast_dev_run=args.fast_dev_run,
         val_check_interval=1.0,
         callbacks=[lr_monitor, es_callback, checkpoint_callback],
-        progress_bar_refresh_rate=0,
         devices=-1,
     )
     trainer.fit(model, dataloader_trn, dataloader_val)

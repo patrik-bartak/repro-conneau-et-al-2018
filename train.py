@@ -50,7 +50,7 @@ def train():
         filename="{epoch:02d}-{step}-{val_acc:.2f}",
         save_on_train_epoch_end=True,
         enable_version_counter=True,
-        every_n_epochs=1,
+        every_n_epochs=5,
         save_top_k=-1,
     )
 

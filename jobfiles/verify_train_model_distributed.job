@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --partition=gpu
-#SBATCH --gpus=1
-#SBATCH --job-name=verify_train_models
+#SBATCH --gpus=4
+#SBATCH --job-name=verify_train_models_distributed
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --time=01:00:00

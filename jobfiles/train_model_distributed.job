@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #SBATCH --partition=gpu
-#SBATCH --gpus=1
-#SBATCH --job-name=verify_train_models
+#SBATCH --gpus=4
+#SBATCH --job-name=train_models_distributed
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --time=01:00:00
+#SBATCH --time=05:00:00
 #SBATCH --mem=16000M
-#SBATCH --output=output/verify_train_model_%A.out
+#SBATCH --output=output/train_model_%A.out
 
 module purge
 module load 2022
@@ -19,4 +19,4 @@ conda env create -f environment.yaml
 # activate env
 source activate atcs
 
-bash ./verify_train_all_models.sh
+bash ./train_all_models.sh

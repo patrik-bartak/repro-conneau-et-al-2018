@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --time=01:00:00
 #SBATCH --mem=16000M
-#SBATCH --output=output/verify_train_model_%A.out
+#SBATCH --output=output/verify_train_models_distributed_%A.out
 
 module purge
 module load 2022

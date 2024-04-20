@@ -61,7 +61,7 @@ class NLIClassifier(pl.LightningModule):
         self.manual_backward(loss)
         opt.step()
 
-        self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True)
+        self.log("train_loss", loss, on_epoch=True, prog_bar=True, logger=True, sync_dist=True)
         assert not loss.isnan().any(), "Some loss values are nan"
         return loss
 
@@ -69,8 +69,8 @@ class NLIClassifier(pl.LightningModule):
         loss, acc = self.common_step(batch, compute_acc=True)
         # Save acc of validation step to compute epoch val acc later for early stopping scheduler
         self.step_val_accs.append(acc)
-        self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True)
-        self.log("val_acc", acc, on_epoch=True, prog_bar=True, logger=True)
+        self.log("val_loss", loss, on_epoch=True, prog_bar=True, logger=True, sync_dist=True)
+        self.log("val_acc", acc, on_epoch=True, prog_bar=True, logger=True, sync_dist=True)
         assert not loss.isnan().any(), "Some loss values are nan"
         return loss
 
@@ -83,8 +83,8 @@ class NLIClassifier(pl.LightningModule):
 
     def test_step(self, batch, _):
         loss, acc = self.common_step(batch, compute_acc=True)
-        self.log("test_loss", loss, on_epoch=True, prog_bar=True, logger=True)
-        self.log("test_acc", acc, on_epoch=True, prog_bar=True, logger=True)
+        self.log("test_loss", loss, on_epoch=True, prog_bar=True, logger=True, sync_dist=True)
+        self.log("test_acc", acc, on_epoch=True, prog_bar=True, logger=True, sync_dist=True)
         assert not loss.isnan().any(), "Some loss values are nan"
         return loss
 

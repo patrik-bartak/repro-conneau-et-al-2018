@@ -2,6 +2,7 @@ name: atcs
 channels:
   - conda-forge
 dependencies:
+  - python==3.10
   - pip=24.0=pyhd8ed1ab_0
   - pip:
       - absl-py==2.1.0
@@ -81,3 +82,4 @@ dependencies:
       - werkzeug==3.0.2
       - xxhash==3.4.1
       - yarl==1.9.4
+      - jupyter==1.0.0

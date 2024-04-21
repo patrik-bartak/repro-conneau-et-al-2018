@@ -1,7 +1,8 @@
 import os
 
 import lightning as pl
-from lightning.pytorch.callbacks import LearningRateMonitor, ModelCheckpoint, EarlyStopping
+from lightning.pytorch.callbacks import (EarlyStopping, LearningRateMonitor,
+                                         ModelCheckpoint)
 from lightning.pytorch.loggers import TensorBoardLogger
 
 from src.dataset.dataloaders import create_dataloaders
@@ -44,7 +45,9 @@ def train():
     model = NLIClassifier(**model_config)
 
     lr_monitor = LearningRateMonitor(logging_interval="step")
-    es_callback = EarlyStopping(monitor="lr-SGD", mode="min", patience=0, stopping_threshold=10e-5, verbose=True)
+    es_callback = EarlyStopping(
+        monitor="lr-SGD", mode="min", patience=0, stopping_threshold=10e-5, verbose=True
+    )
     checkpoint_callback = ModelCheckpoint(
         dirpath=os.path.join(args.checkpoint_dir, args.run_name).__str__(),
         filename="{epoch:02d}-{step}-{val_acc:.2f}",

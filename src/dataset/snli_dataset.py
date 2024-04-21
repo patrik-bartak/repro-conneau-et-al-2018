@@ -75,6 +75,25 @@ def collate_nli(dset_items):
     return padded_token_idxs_p, padded_token_idxs_h, lengths_p, lengths_h, labels
 
 
+def str_to_idxs(sent_1, sent_2, tokenizer, emb_vocab):
+    sent_tokens = [
+        [token.text for token in tokenizer(sent.lower())] for sent in [sent_1, sent_2]
+    ]
+    indices = [emb_vocab(sent_tok) for sent_tok in sent_tokens]
+    sents = [torch.tensor([idxs], dtype=torch.long) for idxs in indices]
+    lens = [
+        torch.tensor([len(sent_token)], dtype=torch.int64) for sent_token in sent_tokens
+    ]
+    return [*sents, *lens]
+
+
+label_map = {
+    0: "entailment",
+    1: "neutral",
+    2: "contradiction",
+}
+
+
 class SNLIDataset(Dataset):
 
     def __init__(

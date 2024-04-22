@@ -38,7 +38,7 @@ def flatten_nested_lists(lists):
     return [item for lst in lists for item in lst]
 
 
-def get_logger(log_path, displaying=True, saving=True, debug=False):
+def get_logger(log_path=None, displaying=True, saving=True, debug=False):
     logger = logging.getLogger()
     if debug:
         level = logging.DEBUG
@@ -46,7 +46,7 @@ def get_logger(log_path, displaying=True, saving=True, debug=False):
         level = logging.INFO
     log_formatter = logging.Formatter(fmt="[%(levelname)s] %(message)s")
     logger.setLevel(level)
-    if saving:
+    if saving and log_path:
         info_file_handler = logging.FileHandler(log_path, mode="a")
         info_file_handler.setLevel(level)
         info_file_handler.setFormatter(log_formatter)

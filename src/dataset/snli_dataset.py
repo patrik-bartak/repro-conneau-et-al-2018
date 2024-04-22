@@ -1,5 +1,6 @@
 import logging
 
+import numpy as np
 import torch
 from torch.utils.data import Dataset
 from torchtext.vocab import GloVe, Vocab, build_vocab_from_iterator
@@ -14,18 +15,26 @@ def tokenize_sentence(sentence, tokenizer):
 def process_data(dataset, tokenizer):
     feats = ["premise", "hypothesis"]
 
+    token_lens = []
+
     def is_valid_label(row):
         return row["label"] in {0, 1, 2}
 
     def tokenize_row(row):
         for feat in feats:
             row[feat] = tokenize_sentence(row[feat], tokenizer)
+            token_lens.append(len(row[feat]))
         return row
 
     logging.info("Filtering out invalid labels")
     filtered_dataset = dataset.filter(is_valid_label)
     logging.info("Tokenizing dataset splits")
     tokenized_dataset = filtered_dataset.map(tokenize_row)
+
+    mean_token_len = np.mean(token_lens)
+    std_token_len = np.std(token_lens)
+    logging.info(f"Processed data with mean token length {mean_token_len} and std {std_token_len}")
+
     return tokenized_dataset
 
 

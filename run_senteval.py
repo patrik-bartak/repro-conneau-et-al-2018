@@ -5,7 +5,6 @@ import logging
 import os
 import sys
 
-from src.dataset.dataloaders import get_embeddings_for_data
 from src.dataset.snli_dataset import (
     get_aligned_glove_embeddings_from_unique_tokens, senteval_collate)
 from src.dataset.utils import flatten_nested_lists

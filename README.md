@@ -1,12 +1,19 @@
 # Learning sentence representations
-Learning sentence representations from natural language inference data
-
-Dataset used: https://huggingface.co/datasets/stanfordnlp/snli
+Learning sentence representations from natural language inference data using the [SNLI dataset](https://huggingface.co/datasets/stanfordnlp/snli). 
 
 # Setup
 
 To set up the requirements, run `conda env create -f environment.yaml`. Then activate 
 the environment using `conda activate atcs`. 
+
+Model checkpoints are available at [this link](https://drive.google.com/drive/folders/1r1Rz8RfBsE_tOXzfJiaPJ4MuiPYB6ee3?usp=share_link). 
+
+The `demonstration.ipynb`, `eval.py` and `run_senteval.py` expect to find the checkpoints at the following locations, 
+but you can easily unzip the embeddings from the link above and the files structure should be correct: 
+- `checkpoint/real_me_train/final.ckpt`
+- `checkpoint/real_lstme_train/final.ckpt`
+- `checkpoint/real_blstme_train/final.ckpt`
+- `checkpoint/real_blstmpme_train/final.ckpt`
 
 # Structure
 

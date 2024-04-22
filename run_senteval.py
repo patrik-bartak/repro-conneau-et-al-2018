@@ -19,7 +19,9 @@ PATH_TO_SENTEVAL = "./SentEval"
 PATH_TO_DATA = "./SentEval/data"
 PATH_TO_EMBEDDINGS = "./data/processed"
 PATH_TO_CHECKPOINTS = "./checkpoint"
-OUTPUT_PATH = "./senteval_results.json"
+OUTPUT_DIR = "./senteval_results"
+
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # import SentEval
 sys.path.insert(0, PATH_TO_SENTEVAL)
@@ -90,16 +92,24 @@ ckpt_paths = [
 ]
 
 
+def write_result_to_file(file_name, results_dict, print_res=False):
+    if print_res:
+        print(results_dict)
+    with open(os.path.join(OUTPUT_DIR, file_name), "w") as json_res:
+        json.dump(results_dict, json_res, indent=4)
+
+
 def main():
     results = []
     for ckpt_path in ckpt_paths:
         print(f"Running senteval on checkpoint {ckpt_path}")
         res = run_senteval_on_checkpoint(ckpt_path)
-        print(res)
+
+        write_result_to_file(f"senteval_results_{ckpt_path}.json", res, print_res=True)
         results.append(res)
 
-    with open(OUTPUT_PATH, "w") as json_res:
-        json.dump(results, json_res, indent=4)
+    write_result_to_file("senteval_results_all.json", results)
+    print(f"Senteval finished")
 
 
 if __name__ == "__main__":

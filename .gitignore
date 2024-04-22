@@ -164,3 +164,4 @@ cython_debug/
 checkpoint/
 data/
 SentEval/
+senteval_results/

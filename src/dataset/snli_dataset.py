@@ -83,6 +83,8 @@ def senteval_collate(tok_batch, emb_vocab):
     idxs_batch = []
     len_batch = []
     for tokens in tok_batch:
+        # Some samples are empty, so make them nonempty
+        tokens = ["."] if tokens == [] else tokens
         idxs = emb_vocab(tokens)
         l = len(idxs)
         idxs_batch.append(torch.tensor(idxs, dtype=torch.long))

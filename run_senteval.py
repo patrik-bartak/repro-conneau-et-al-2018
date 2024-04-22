@@ -70,7 +70,7 @@ def run_senteval_on_checkpoint(ckpt_path):
         "TREC",
         "MRPC",
         "SICKEntailment",
-        "STS14",
+        # "STS14",
     ]
     return se.eval(transfer_tasks)
 

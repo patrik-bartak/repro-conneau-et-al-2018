@@ -163,3 +163,4 @@ cython_debug/
 .vector_cache/
 checkpoint/
 data/
+SentEval/

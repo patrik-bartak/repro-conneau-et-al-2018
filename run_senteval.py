@@ -76,7 +76,7 @@ def run_senteval_on_checkpoint(ckpt_path):
 
 
 model_abbreviations = [
-    # "me",
+    "me",
     "lstme",
     "blstme",
     "blstmpme",

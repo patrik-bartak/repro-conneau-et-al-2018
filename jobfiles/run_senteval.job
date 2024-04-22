@@ -13,8 +13,6 @@ module load 2022
 module load Anaconda3/2022.05
 # cd to dir
 cd $HOME/learning-sentence-representations/
-
-conda env remove --name atcs
 # create env
 conda env create -f environment.yaml
 # activate env

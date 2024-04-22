@@ -83,10 +83,13 @@ model_abbreviations = [
 ]
 
 ckpt_paths = [
-    os.path.join(
-        "checkpoint",
-        f"real_{abbrv}_train",
-        "final.ckpt",
+    (
+        os.path.join(
+            "checkpoint",
+            f"real_{abbrv}_train",
+            "final.ckpt",
+        ),
+        abbrv,
     )
     for abbrv in model_abbreviations
 ]
@@ -95,17 +98,19 @@ ckpt_paths = [
 def write_result_to_file(file_name, results_dict, print_res=False):
     if print_res:
         print(results_dict)
-    with open(os.path.join(OUTPUT_DIR, file_name), "w") as json_res:
-        json.dump(results_dict, json_res, indent=4)
+    with open(os.path.join(OUTPUT_DIR, file_name), "w") as f:
+        json.dump(results_dict, f, indent=4)
 
 
 def main():
     results = []
-    for ckpt_path in ckpt_paths:
+    for ckpt_path, model_abbrv in ckpt_paths:
         print(f"Running senteval on checkpoint {ckpt_path}")
         res = run_senteval_on_checkpoint(ckpt_path)
 
-        write_result_to_file(f"senteval_results_{ckpt_path}.json", res, print_res=True)
+        write_result_to_file(
+            f"senteval_results_{model_abbrv}.json", res, print_res=True
+        )
         results.append(res)
 
     write_result_to_file("senteval_results_all.json", results)

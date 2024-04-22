@@ -6,7 +6,7 @@ Learning sentence representations from natural language inference data using the
 To set up the requirements, run `conda env create -f environment.yaml`. Then activate 
 the environment using `conda activate atcs`. 
 
-Model checkpoints in the form of a `checkpoint` file are available at [this link](https://drive.google.com/drive/folders/1r1Rz8RfBsE_tOXzfJiaPJ4MuiPYB6ee3?usp=share_link). 
+Model checkpoints (and Tensorboard logs) in the form of a `checkpoint` folder are available at [this link](https://drive.google.com/drive/folders/1r1Rz8RfBsE_tOXzfJiaPJ4MuiPYB6ee3?usp=share_link). 
 
 Tensorboard logs are in: 
   - `checkpoint/real_me_train/version_0/`. 
@@ -23,6 +23,9 @@ but you can easily unzip the embeddings from the link above and the files struct
 
 # Structure
 
+- The demo notebook is located in `notebooks/demonstration.ipynb`. 
+- The report is located in `report.md`. 
+- Senteval results are in `senteval_results/`, 
 - Source code is in `src`. 
 - Notebooks are in `notebooks`. 
 - Job files are in `jobfiles`.
@@ -37,12 +40,14 @@ The following folders may be created when running scripts:
 # Model training
 
 To train a model, use `python train.py`. Use the `--help` flag to learn more about possible arguments. 
-An example of how this file was used can be seen in `train_all_models.sh`. 
+An example of how this file was used can be seen in `train_all_models.sh`. You can also run `verify_train_all_models.sh`, 
+which runs a single train/val step to validate the framework. 
 
 # Model evaluation
 
 To test models on SNLI, use `python eval.py`. Use the `--help` flag to learn more about possible arguments. 
-An example of how this file was used can be seen in `eval_all_models.sh`. 
+An example of how this file was used can be seen in `eval_all_models.sh`. You can also run `verify_eval_all_models.sh`, 
+which runs a single test step to validate the framework. 
 
 To run the senteval evaluation, use `python senteval.py`. This will run the `setup_senteval.sh` script, and then 
 perform the senteval evaluation of all the models present in `./checkpoint/<ckpt_name>/final.ckpt`. 

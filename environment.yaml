@@ -83,3 +83,4 @@ dependencies:
       - xxhash==3.4.1
       - yarl==1.9.4
       - jupyter==1.0.0
+      - scikit-learn==1.4.2

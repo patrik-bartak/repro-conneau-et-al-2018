@@ -19,7 +19,7 @@ PATH_TO_SENTEVAL = "./SentEval"
 PATH_TO_DATA = "./SentEval/data"
 PATH_TO_EMBEDDINGS = "./data/processed"
 PATH_TO_CHECKPOINTS = "./checkpoint"
-OUTPUT_DIR = "./senteval_results"
+OUTPUT_DIR = "./senteval_results_STS14"
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -70,13 +70,13 @@ def run_senteval_on_checkpoint(ckpt_path):
         "TREC",
         "MRPC",
         "SICKEntailment",
-        # "STS14",
+        "STS14",
     ]
     return se.eval(transfer_tasks)
 
 
 model_abbreviations = [
-    "me",
+    # "me",
     "lstme",
     "blstme",
     "blstmpme",

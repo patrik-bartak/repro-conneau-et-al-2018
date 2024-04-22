@@ -42,7 +42,7 @@ If we look at validation accuracy, we see that the relative performance of the m
 the same for the models throughout training, except for the LSTM and BiLSTM, which seem to 
 achieve similar validation accuracy throughout training. 
 
-Test results for the 4 models are as shown below (also can be seen in the Tensorboard results):
+Test results for the 4 models are as shown below (also can be seen by running `eval.py` on the provided checkpoints):
 
 | Encoder Type                 | Test Accuracy |
 |------------------------------|---------------|

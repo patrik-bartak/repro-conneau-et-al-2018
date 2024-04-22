@@ -62,14 +62,14 @@ def run_senteval_on_checkpoint(ckpt_path):
     se = senteval.SE(params_senteval, batcher, prepare)
 
     transfer_tasks = [
-        "MR",
-        "CR",
-        "MPQA",
-        "SUBJ",
-        "SST2",
-        "TREC",
-        "MRPC",
-        "SICKEntailment",
+        # "MR",
+        # "CR",
+        # "MPQA",
+        # "SUBJ",
+        # "SST2",
+        # "TREC",
+        # "MRPC",
+        # "SICKEntailment",
         "STS14",
     ]
     return se.eval(transfer_tasks)

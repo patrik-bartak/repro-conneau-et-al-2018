@@ -62,15 +62,18 @@ def run_senteval_on_checkpoint(ckpt_path):
     se = senteval.SE(params_senteval, batcher, prepare)
 
     transfer_tasks = [
-        # "MR",
-        # "CR",
-        # "MPQA",
-        # "SUBJ",
-        # "SST2",
-        # "TREC",
-        # "MRPC",
-        # "SICKEntailment",
-        "STS14",
+        "MR",
+        "CR",
+        "MPQA",
+        "SUBJ",
+        "SST2",
+        "TREC",
+        "MRPC",
+        "SICKEntailment",
+        # I was not able to run this eval due to a necessary file missing when downloading the data using MacOS.
+        # When using the cluster, a different bug came up that prevented me from running the eval without changes
+        # to the senteval source code.
+        # "STS14",
     ]
     return se.eval(transfer_tasks)
 

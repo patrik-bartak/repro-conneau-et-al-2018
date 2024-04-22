@@ -6,9 +6,9 @@ from datasets import load_dataset, load_from_disk
 from spacy.lang.en import English
 from torch.utils.data import DataLoader
 
-from src.dataset.snli_dataset import (SNLIDataset, collate_nli,
-                                      get_aligned_glove_embeddings,
-                                      get_unique_tokens, process_data)
+from src.dataset.snli_dataset import (
+    SNLIDataset, collate_nli, get_aligned_glove_embeddings_from_unique_tokens,
+    get_unique_tokens, process_data)
 from src.dataset.utils import dataset_splits, get_feats
 
 
@@ -35,7 +35,7 @@ def get_embeddings_for_data(dataset_path=os.path.join("data", "processed")):
     else:
         os.makedirs(os.path.dirname(embedding_path), exist_ok=True)
         tokens = get_unique_tokens(data)
-        emb_vocab, emb_vecs = get_aligned_glove_embeddings(tokens)
+        emb_vocab, emb_vecs = get_aligned_glove_embeddings_from_unique_tokens(tokens)
         with open(embedding_path, "wb") as f:
             pickle.dump((emb_vocab, emb_vecs), f)
     return emb_vocab, emb_vecs

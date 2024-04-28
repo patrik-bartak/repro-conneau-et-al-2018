@@ -1,7 +1,9 @@
 import logging
 import os
 import pickle
+from typing import Tuple
 
+import torch.utils.data
 from datasets import load_dataset, load_from_disk
 from spacy.lang.en import English
 from torch.utils.data import DataLoader
@@ -13,6 +15,12 @@ from src.dataset.utils import dataset_splits, get_feats
 
 
 def get_processed_data(dataset_path=os.path.join("data", "processed")):
+    """
+    Read in the processed data based on a path.
+
+    :param dataset_path: Path to the dataset.
+    :return: The processed data.
+    """
     # Data
     dataset = load_dataset("stanfordnlp/snli")
     # Load embeddings
@@ -27,6 +35,12 @@ def get_processed_data(dataset_path=os.path.join("data", "processed")):
 
 
 def get_embeddings_for_data(dataset_path=os.path.join("data", "processed")):
+    """
+    Read or download GLoVe embeddings for a data path.
+
+    :param dataset_path: Path to dataset.
+    :return: Embedding vocab and vectors.
+    """
     data = get_processed_data(dataset_path)
     embedding_path = os.path.join(dataset_path, "embeddings.pickle")
     if os.path.exists(embedding_path):
@@ -42,11 +56,20 @@ def get_embeddings_for_data(dataset_path=os.path.join("data", "processed")):
 
 
 def create_dataloaders(
-    batch_size,
-    dataset_path=os.path.join("data", "processed"),
-    splits=dataset_splits,
-    data_fraction=1,
-):
+    batch_size: int,
+    dataset_path: str = os.path.join("data", "processed"),
+    splits: list[str] = dataset_splits,
+    data_fraction: int = 1,
+) -> Tuple[list[torch.utils.data.DataLoader], torch.Tensor]:
+    """
+    Get the dataloaders and embedding vectors based on a path.
+
+    :param batch_size: Batch size for the loader.
+    :param dataset_path: Path to read data from.
+    :param splits: Splits to include in the loaders.
+    :param data_fraction: Fraction of data to load.
+    :return: The dataloaders and embedding vectors
+    """
     processed_data = get_processed_data(dataset_path)
     emb_vocab, emb_vecs = get_embeddings_for_data(dataset_path)
     dataloaders = []

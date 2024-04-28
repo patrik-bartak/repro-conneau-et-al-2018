@@ -5,7 +5,12 @@ import torch.nn.functional as F
 from torch.optim.lr_scheduler import ExponentialLR, ReduceLROnPlateau
 
 
-def get_mlp_layers_from_dims(mlp_dims):
+def get_mlp_layers_from_dims(mlp_dims: list[int]) -> list[nn.Module]:
+    """
+    Get a list of linear layer modules (with ReLUs) from a list of dimensions.
+    :param mlp_dims: List of dimensions.
+    :return: List of modules.
+    """
     layers = []
     for i in range(len(mlp_dims) - 1):
         layers.append(nn.Linear(mlp_dims[i], mlp_dims[i + 1]))
@@ -15,7 +20,13 @@ def get_mlp_layers_from_dims(mlp_dims):
 
 
 class NLIClassifier(pl.LightningModule):
-    def __init__(self, mlp_dims, encoder_type, embedding_mat, **kwargs):
+    def __init__(
+        self,
+        mlp_dims: list[int],
+        encoder_type: type[nn.Module],
+        embedding_mat: torch.Tensor,
+        **kwargs
+    ):
         super(NLIClassifier, self).__init__()
         self.encoder = encoder_type(**kwargs)
         self.embedding = nn.Embedding.from_pretrained(embedding_mat, freeze=True)
@@ -29,7 +40,9 @@ class NLIClassifier(pl.LightningModule):
         self.rlr_scheduler = None
         self.step_val_accs = []
 
-    def forward(self, u, v, l_u, l_v):
+    def forward(
+        self, u: torch.Tensor, v: torch.Tensor, l_u: torch.Tensor, l_v: torch.Tensor
+    ) -> torch.Tensor:
         # Embed token idxs
         u = self.embedding(u)
         v = self.embedding(v)

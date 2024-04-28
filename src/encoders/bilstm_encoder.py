@@ -3,7 +3,15 @@ import torch.nn as nn
 
 
 class BiLSTMEncoder(nn.Module):
-    def __init__(self, encoder_in_size, encoder_out_size, num_layers=1, **_):
+    def __init__(
+        self, encoder_in_size: int, encoder_out_size: int, num_layers: int = 1, **_
+    ):
+        """
+        Initialize an encoder that applies a bidirectional LSTM to the inputs.
+        :param encoder_in_size: Input dimensionality.
+        :param encoder_out_size: Output dimensionality.
+        :param num_layers: Number of LSTM layers.
+        """
         super(BiLSTMEncoder, self).__init__()
         self.bilstm = nn.LSTM(
             input_size=encoder_in_size,
@@ -13,7 +21,7 @@ class BiLSTMEncoder(nn.Module):
             bidirectional=True,
         )
 
-    def forward(self, idxs, lens):
+    def forward(self, idxs: torch.Tensor, lens: torch.Tensor) -> torch.Tensor:
         idxs_packed = torch.nn.utils.rnn.pack_padded_sequence(
             idxs, lens.cpu(), batch_first=True, enforce_sorted=False
         )

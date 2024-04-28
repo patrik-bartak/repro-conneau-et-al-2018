@@ -9,10 +9,24 @@ from src.dataset.utils import get_feats, get_splits
 
 
 def tokenize_sentence(sentence, tokenizer):
+    """
+    Lowercase and tokenize a string.
+
+    :param sentence: The string.
+    :param tokenizer: Tokenizer to use.
+    :return: The tokenized string.
+    """
     return [token.text for token in tokenizer(sentence.lower())]
 
 
-def process_data(dataset, tokenizer):
+def process_data(dataset: Dataset, tokenizer) -> Dataset:
+    """
+    Tokenize an entire dataset.
+
+    :param dataset: Dataset to tokenize.
+    :param tokenizer: Tokenizer to use.
+    :return: Tokenized dataset.
+    """
     feats = ["premise", "hypothesis"]
 
     token_lens = []
@@ -33,12 +47,20 @@ def process_data(dataset, tokenizer):
 
     mean_token_len = np.mean(token_lens)
     std_token_len = np.std(token_lens)
-    logging.info(f"Processed data with mean token length {mean_token_len} and std {std_token_len}")
+    logging.info(
+        f"Processed data with mean token length {mean_token_len} and std {std_token_len}"
+    )
 
     return tokenized_dataset
 
 
-def get_unique_tokens(dataset):
+def get_unique_tokens(dataset: Dataset) -> set:
+    """
+    Get a set of unique tokens from a tokenized dataset.
+
+    :param dataset: Dataset of tokenized text.
+    :return: Unique set of tokens.
+    """
     tokens = {
         token
         for split in get_splits(dataset)
@@ -52,8 +74,9 @@ def get_unique_tokens(dataset):
 
 def get_aligned_glove_embeddings_from_unique_tokens(tokens):
     """
-    Get the glove embeddings necessary for the train/test/val dataset
-    :return:
+    Get the glove embeddings necessary for the train/test/val dataset.
+
+    :return: Vocab and embedding vectors.
     """
     custom_vocab = build_vocab_from_iterator(
         [tokens], specials=["<unk>"], special_first=True
@@ -73,6 +96,12 @@ def get_aligned_glove_embeddings_from_unique_tokens(tokens):
 
 
 def collate_nli(dset_items):
+    """
+    Collate a batch for the NLI task.
+
+    :param dset_items: Items from the dataset object.
+    :return: Collated batch.
+    """
     token_idxs_p, token_idxs_h, lengths_p, lengths_h, labels = zip(*dset_items)
 
     padded_token_idxs_p = torch.nn.utils.rnn.pad_sequence(
@@ -89,6 +118,13 @@ def collate_nli(dset_items):
 
 
 def senteval_collate(tok_batch, emb_vocab):
+    """
+    Collate a batch for the senteval evaluation.
+
+    :param tok_batch: Batch of tokens.
+    :param emb_vocab: Vocab.
+    :return: Collated batch and lengths.
+    """
     idxs_batch = []
     len_batch = []
     for tokens in tok_batch:
@@ -106,6 +142,14 @@ def senteval_collate(tok_batch, emb_vocab):
 
 
 def str_to_idxs(sent, tokenizer, emb_vocab):
+    """
+    Convert a string to a tensor of token indices and tensor of lengths.
+
+    :param sent: The string.
+    :param tokenizer: The tokenizer.
+    :param emb_vocab: The vocab.
+    :return: Tensor of token indices and tensor of lengths.
+    """
     sent_tokens = tokenize_sentence(sent, tokenizer)
     indices = emb_vocab(sent_tokens)
     idxs_tensor = torch.tensor([indices], dtype=torch.long)

@@ -24,10 +24,23 @@ encoders_with_hidden_size = {
 
 
 def get_splits(dataset):
+    """
+    Get the data splits for the dataset.
+
+    :param dataset: The dataset.
+    :return: A list of data splits
+    """
     return [dataset[split] for split in dataset_splits]
 
 
 def get_feats(split, include_labels=True):
+    """
+    Get the features in a data split.
+
+    :param split: The data split.
+    :param include_labels: Whether to include labels as a feature.
+    :return: A list of features from the split
+    """
     if include_labels:
         return [split[feat] for feat in dataset_feats]
     else:
@@ -60,6 +73,9 @@ def get_logger(log_path=None, displaying=True, saving=True, debug=False):
 
 
 def get_eval_parser():
+    """
+    Get the parser for the eval script.
+    """
     parser = argparse.ArgumentParser(description="NLI Evaluation")
 
     parser.add_argument(
@@ -108,6 +124,9 @@ def get_eval_parser():
 
 
 def get_main_parser():
+    """
+    Get the parser for the main training script.
+    """
     parser = argparse.ArgumentParser(description="NLI Training")
 
     # Required
@@ -200,6 +219,11 @@ def get_main_parser():
 
 
 def assert_args_are_valid(args):
+    """
+    Ensure the passed in args are valid for the experiments.
+
+    :param args: The arguments.
+    """
     assert args.mlp_dims[-1] == 3, "Final mlp dim must be 3"
 
     if args.encoder == "me":

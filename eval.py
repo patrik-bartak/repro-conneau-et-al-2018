@@ -1,5 +1,4 @@
 import lightning as pl
-import torch.nn as nn
 from lightning.pytorch.loggers import TensorBoardLogger
 
 from src.dataset.dataloaders import create_dataloaders
@@ -8,6 +7,9 @@ from src.models.nliclassifier import NLIClassifier
 
 
 def eval():
+    """
+    Evaluate a classifier on the NLI task with one of the four encoder types.
+    """
     parser = get_eval_parser()
     args = parser.parse_args()
 

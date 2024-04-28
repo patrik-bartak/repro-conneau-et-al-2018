@@ -35,9 +35,6 @@ def run_senteval_on_checkpoint(ckpt_path):
         params.emb_vocab, params.emb_vecs = (
             get_aligned_glove_embeddings_from_unique_tokens(unique_tokens)
         )
-        # params.emb_vocab, params.emb_vecs = get_embeddings_for_data(
-        #     dataset_path=PATH_TO_EMBEDDINGS
-        # )
 
         full_model = (
             NLIClassifier.load_from_checkpoint(

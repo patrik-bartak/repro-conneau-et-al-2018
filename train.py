@@ -12,6 +12,9 @@ from src.models.nliclassifier import NLIClassifier
 
 
 def train():
+    """
+    Train a classifier on the NLI task with one of the four encoder types.
+    """
     parser = get_main_parser()
     args = parser.parse_args()
 

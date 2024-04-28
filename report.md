@@ -82,7 +82,7 @@ the micro score of the Mean encoder is higher than that of the LSTM encoder.
 
 Overall, the BiLSTM with Max Pool Encoder is clearly the best performing model in the natural language entailment task, as seen by 
 results on the SNLI dataset. This is also the case in the aggregated senteval evaluation. That being said, the results of 
-senteval introduce some nuance to our conclusions on some of the other models. Which it is clear that the mean encoder has worst performance 
-on the NLI task by a large margin, it actually has a surprisingly high micro score in the aggregated senteval evaluation. This indicates that 
+senteval introduce some nuance to our conclusions on some of the other models. While it is clear that the mean encoder has worst performance 
+on the NLI task by a large margin, it has a surprisingly high micro score in the aggregated senteval evaluation. This indicates that 
 for simpler tasks, such as sentiment classification, the mean encoder may be not only more efficient but also more performant. This can be seen by 
 looking at the MR and SST tasks, where the mean encoder outperforms the LSTM models. 
